@@ -5,6 +5,7 @@ params.str = 'Hello world!'
 
 workflow {
 process smallish {
+    container quay.io/nextflow/bash
     publishDir "${params.publish_dir}/", mode: 'copy'
     label 'process_low'
 
@@ -17,6 +18,7 @@ process smallish {
 }
 
 process largerish {
+    container quay.io/nextflow/bash
     publishDir "${params.publish_dir}/", mode: 'copy'
     label 'process_high'
 
