@@ -30,6 +30,21 @@ process high_proc {
     """
 }
 
+process gpu_low_proc {
+    container "docker.io/nvidia/cuda:12.9.0-base-ubuntu22.04"
+    publishDir "${params.publish_dir}/", mode: 'copy'
+    label 'process_low'
+    label 'process_gpu'
+
+    output:
+    path "./gpu_low_proc.txt", emit: gpu_low_proc
+
+    """
+    nvidia-smi > gpu_low_proc.txt
+    """
+}
+
     low_proc | view
     high_proc | view
+    gpu_low_proc | view
 }
