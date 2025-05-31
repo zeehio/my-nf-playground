@@ -4,32 +4,32 @@ params.publish_dir = './results'
 params.str = 'Hello world!'
 
 workflow {
-process smallish {
+process low_proc {
     container "quay.io/nextflow/bash"
     publishDir "${params.publish_dir}/", mode: 'copy'
     label 'process_low'
 
     output:
-    path "./smallish.txt", emit: smallish_file
+    path "./low_proc.txt", emit: low_proc
 
     """
-    free -h > smallish.txt
+    free -h > low_proc.txt
     """
 }
 
-process largerish {
+process high_proc {
     container "quay.io/nextflow/bash"
     publishDir "${params.publish_dir}/", mode: 'copy'
     label 'process_high'
 
     output:
-    path "./largerish.txt", emit: largerish_file
+    path "./high_proc.txt", emit: high_proc
 
     """
-    free -h > largerish.txt
+    free -h > high_proc.txt
     """
 }
 
-    smallish | view
-    largerish | view
+    low_proc | view
+    high_proc | view
 }
